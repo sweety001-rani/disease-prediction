@@ -6,8 +6,19 @@ from streamlit_option_menu import option_menu
 
 
 # loading the saved models
+try:
+    with open('diabetes_model.sav', 'rb') as file:
+        diabetes_model = pickle.load(file)
+except FileNotFoundError:
+    st.error("Model file 'diabetes_model.sav' not found.")
+    st.stop()
+except pickle.UnpicklingError:
+    st.error("Error loading the model file.")
+    st.stop()
 
-diabetes_model = pickle.load(open('diabetes_model.sav', 'rb'))
+
+
+# diabetes_model = pickle.load(open('diabetes_model.sav', 'rb'))
 
 heart_disease_model = pickle.load(open('heart_disease_model.sav','rb'))
 
